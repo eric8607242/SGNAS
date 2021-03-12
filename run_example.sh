@@ -1,0 +1,2 @@
+CUDA_VISIBLE_DEVICES=0,1,2,3 ./distributed_train.sh 4 /home/jovyan/  --model get_model  \
+--epochs 500  --warmup-epochs 5  --batch-size 64 --lr 0.016 --opt rmsproptf --opt-eps 0.001 --sched step --decay-epochs 3 --decay-rate 0.963 --color-jitter 0.4 --drop 0.2  -j 8 --num-classes 1000 --model-ema --weight-decay 1e-5 --amp --lmdb --target_flops 320 --config_path ./config_file/imagenet_config.yml --bn-momentum 0.001 --se True --activation hswish

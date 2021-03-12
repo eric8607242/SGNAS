@@ -1,0 +1,4 @@
+optimizer: adam
+weight_decay : 0
+lr: 0.001
+beta: 0.5

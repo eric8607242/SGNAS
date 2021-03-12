@@ -1,0 +1,4 @@
+optimizer: sgd
+lr: 0.064
+momentum: 0.9
+weight_decay: 0.0004

@@ -1,0 +1,9 @@
+torch==1.2.0
+torchvision==0.4.0
+tensorboardX
+tabulate==0.8.7
+fire==0.3.1
+lmdb==0.98
+umsgpack==0.1.0
+pyarrow==0.17.1
+timm==0.1.14
