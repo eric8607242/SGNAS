@@ -24,8 +24,12 @@ pip3 install -r requirements.txt
 
 ## Getting Started
 ### Search
+To search the architecture, we sample 20% images from the training set as the validation set, and the reset is kept as the training set.
+For cifar10/100, set `train_portion` in `./config_file/config.yml` to `0.8`.
+For Imagenet, users should split the dataset manually.
+
 #### Training Unified Supernet
-* For Imagenet training, set the config file `./config_file/imagenet_config.yml`. For cifar100 training, set the config file `./config_file/config.yml`.
+* For Imagenet training, set the config file `./config_file/imagenet_config.yml`. For cifar100 training, set the config file `./config_file/cifar_config.yml`.
 * Set the hyperparameter `warmup_epochs` in the config file to specific the epochs for training the unified supernet.
 
 ```

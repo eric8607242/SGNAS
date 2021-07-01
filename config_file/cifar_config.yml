@@ -46,7 +46,7 @@ dataset: cifar100
 classes: 100
 dataset_dir: ./data/
 input_size: 32
-train_portion: 1
+train_portion: 0.8 # Set 0.8 for architecture searching and 1 for architecture evaluating
 mean: [0.49139968, 0.48215827, 0.44653124]
 std: [0.2023, 0.1994, 0.2010]
 
