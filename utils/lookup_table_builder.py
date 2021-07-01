@@ -218,7 +218,7 @@ class LookUpTable:
                 else:
                     end_index = (b + 1) * split_block
                     split_arch_param = l[b * split_block:(b + 1) * split_block]
-                p_l[b * split_block:end_index] = \
+                p_arch_param[l_num, b * split_block:end_index] = \
                     F.gumbel_softmax(split_arch_param, tau=tau)
 
         return p_arch_param
