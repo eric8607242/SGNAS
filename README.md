@@ -24,30 +24,37 @@ pip3 install -r requirements.txt
 
 ## Getting Started
 ### Search
-To search the architecture, we sample 20% images from the training set as the validation set, and the reset is kept as the training set.
-For cifar10/100, set `train_portion` in `./config_file/config.yml` to `0.8`.
-For Imagenet, users should split the dataset manually.
+- To search the architecture, we sample 20% images from the training set as the validation set, and the reset is kept as the training set.
+    - For cifar10/100, set `train_portion` in `./config_file/config.yml` to `0.8`.
+    - For Imagenet, users should split the dataset manually.
 
 #### Training Unified Supernet
-* For Imagenet training, set the config file `./config_file/imagenet_config.yml`. For cifar100 training, set the config file `./config_file/cifar_config.yml`.
-* Set the hyperparameter `warmup_epochs` in the config file to specific the epochs for training the unified supernet.
+- For Imagenet training, set the config file `./config_file/imagenet_config.yml`. 
+- For cifar100 training, set the config file `./config_file/cifar_config.yml`.
+- Set the hyperparameter `warmup_epochs` in the config file for training the unified supernet.
 
 ```
 python3 search.py --cfg [CONFIG_FILE] --title [EXPERIMENT_TITLE]
 ```
 #### Training Architecture Generator
-* For Imagenet training, set the config file `./config_file/imagenet_config.yml`. For cifar100 training, set the config file `./config_file/config.yml`.
-* Set the hyperparameter `warmup_epochs`  in the config file to skip the supernet training, and set the hyperparameter `search_epochs` to specific the epochs for training the architecture generator.
+- For Imagenet training, set the config file `./config_file/imagenet_config.yml` for `[CONFIG_FILE]`. 
+- For cifar100 training, set the config file `./config_file/cifar_config.yml` for `[CONFIG_FILE]`.
+
+- If you have trained the supernet first, you can directly train the architecture generator with the pretrained supernet weight.
+    - Set the hyperparameter `warmup_epochs` in the config file to `0` to skip the supernet training, and set the hyperparameter `search_epochs` for training the architecture generator.
 ```
-python3 search.py --cfg [CONFIG_FILE] --title [EXPERIMENT_TITLE]
+python3 search.py --cfg [PATH_TO_CONFIG_FILE] --title [EXPERIMENT_TITLE]
 ```
+- `[EXPERIMENT_TITLE]` is the tile for this experiment. (You can set different title for each experiment).
 
 ### Train From Scratch
 #### CIFAR10 or CIFAR100
-* Set `train_portion` in `./config_file/config.yml` to `1`
+- Set `train_portion` in `./config_file/cifar_config.yml` to `1` to train the searched network from scratch with full training dataset.
 ```
-python3 train_cifar.py --cfg [CONFIG_FILE] -- flops [TARGET_FLOPS] --title [EXPERIMENT_TITLE]
+python3 train_cifar.py --cfg [CONFIG_FILE] --flops [TARGET_FLOPS] --title [EXPERIMENT_TITLE]
 ```
+- `[EXPERIMENT_TITLE]` is the tile for this experiment. (You can set different title for each experiment).
+- `[TARGET_FLOPS]` is the target flops of the architecture generated from arhcitecture generator.
 #### ImageNet
 * Set the target flops and correspond config file path in `run_example.sh`
 ```
@@ -56,17 +63,20 @@ bash ./run_example.sh
 
 ### Validate
 #### ImageNet
+- Download the ImageNet validation dataset.
+- Download the checkpoint from the url above.
+
 * SGNAS-A
 ``` SGNAS-A
-python3 validate.py [VAL_PATH] --checkpoint [CHECKPOINT_PATH] --config_path [CONFIG_FILE] --target_flops 365 --se True --activation hswish
+python3 validate.py [PATH_TO_IMAGENET_VALIDATION_DIR] --checkpoint [CHECKPOINT_PATH] --config_path [CONFIG_FILE] --target_flops 365 --se True --activation hswish
 ```
 * SGNAS-B
 ``` SGNAS-B
-python3 validate.py [VAL_PATH] --checkpoint [CHECKPOINT_PATH] --config_path [CONFIG_FILE] --target_flops 320 --se True --activation hswish
+python3 validate.py [PATH_TO_IMAGENET_VALIDATION_DIR] --checkpoint [CHECKPOINT_PATH] --config_path [CONFIG_FILE] --target_flops 320 --se True --activation hswish
 ```
 * SGNAS-C
 ``` SGNAS-C
-python3 validate.py [VAL_PATH] --checkpoint [CHECKPOINT_PATH] --config_path [CONFIG_FILE] --target_flops 275 --se True --activation hswish
+python3 validate.py [PATH_TO_IMAGENET_VALIDATION_DIR] --checkpoint [CHECKPOINT_PATH] --config_path [CONFIG_FILE] --target_flops 275 --se True --activation hswish
 ```
 
 ## Reference

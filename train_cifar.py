@@ -94,7 +94,7 @@ if __name__ == "__main__":
     normalize_hardware_constraint = min_max_normalize(
         CONFIG.high_flops, CONFIG.low_flops, hardware_constraint)
 
-    arch_param = generator(prior, normalize_hardware_constraint, noise)
+    arch_param = generator(prior, normalize_hardware_constraint)
     arch_param = lookup_table.get_validation_arch_param(arch_param)
 
     gen_flops = lookup_table.get_model_flops(arch_param)
